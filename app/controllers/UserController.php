@@ -2,11 +2,10 @@
 
 namespace app\controllers;
 
-class HomeController
+class UserController
 {
     public function index()
     {
-        dd('index Home Controller');
+        dd("user controller index");
     }
-
 }
