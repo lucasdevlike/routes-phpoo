@@ -2,7 +2,10 @@
 
 namespace app\controllers;
 
-class ProductController
+use app\controllers\Controller;
+use League\Plates\Engine;
+
+class ProductController extends Controller
 {
     public function show($params)
     {
