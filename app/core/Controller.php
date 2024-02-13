@@ -8,6 +8,7 @@ class Controller
 {
     public function execute(string $router)
     {
+        // dd($router);
         if (!str_contains($router, '@')) {
             throw new Exception("A rota está registrada com o formato errado.");
         }
@@ -27,7 +28,10 @@ class Controller
             throw new Exception("O método {$method} não existe no controller {$controllerNamespace}");
         }
 
-        $controller->$method();
+        $params = new ControllerParams();
+        $params = $params->get($router);
+
+        $controller->$method($params);
 
         // dd($controller);
     }
