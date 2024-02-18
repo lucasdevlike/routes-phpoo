@@ -27,7 +27,7 @@ abstract class Model
         try {
 
             $sql = "SELECT {$this->fields} from {$this->table} {$this->filters}";
-
+            // dd($sql);
             $connection = Connection::connect();
             $query = $connection->query($sql);
             // dd($query);

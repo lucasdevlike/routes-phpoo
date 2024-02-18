@@ -10,11 +10,13 @@ class HomeController extends Controller
     public function index()
     {
         $filters = new Filters();
-        $filters->where('id', '>', 3);
+        $filters->where('users.id', '>', 2);
+        $filters->join('posts', 'users.id', '=', 'posts.userId', 'left join');
 
         $user = new User();
+        $user->setFields('users.id, users.firstName, users.lastName, titlePost');
         $user->setFilters($filters);
-        $userFound = $user->count();
+        $userFound = $user->fetchAll();
         dd($userFound);
 
         $this->view('Home', ['title' => 'Home']);
