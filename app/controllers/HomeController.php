@@ -9,18 +9,14 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $filters = new Filters();
-        $filters->where('id', '>', 0);
-        // $filters->orderBy("id", "desc");
-        // $filters->limit(5);
+        // $filters = new Filters();
+        // $filters->where('id', '=', 2);
 
         $user = new User();
         // $user->setFilters($filters);
-        // $usersFound = $user->fetchAll();
-        $user->setFilters($filters);
-        $userFound = $user->findBy();
+        $deleted = $user->delete('id', 2);
 
-        dd($userFound);
+        dd($deleted);
         // $filters->dump();
 
         $this->view('Home', ['title' => 'Home']);
