@@ -90,4 +90,19 @@ abstract class Model
 
     }
 
+    public function count()
+    {
+        try {
+
+            $sql = "select {$this->fields} from {$this->table} {$this->filters}";
+
+            $connection = Connection::connect();
+            $query = $connection->query($sql);
+            return $query->rowCount();
+
+        } catch (\PDOException $e) {
+            dd($e->getMessage());
+        }
+    }
+
 }
