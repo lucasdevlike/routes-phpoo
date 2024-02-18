@@ -56,6 +56,21 @@ abstract class Model
         }
     }
 
+    public function first($field = 'id', $order = 'asc')
+    {
+        try {
+
+            $sql = "select {$this->fields} from {$this->table} order by {$field} {$order}";
+
+            $connection = Connection::connect();
+            $query = $connection->query($sql);
+            return $query->fetchObject(get_called_class());
+
+        } catch (\PDOException $e) {
+            dd($e->getMessage());
+        }
+    }
+
     public function delete(string $field = '', string|int $value = '')
     {
 
@@ -74,4 +89,5 @@ abstract class Model
         }
 
     }
+
 }
