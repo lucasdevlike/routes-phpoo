@@ -44,4 +44,30 @@ class Pagination
         return $this->calculations();
     }
 
+    public function links()
+    {
+        $links = '<ul class="pagination">';
+
+        if ($this->currentPage > 1) {
+            $previous = $this->currentPage - 1;
+            $linkPage = http_build_query(array_merge($_GET, [$this->pageIdentifier => $previous]));
+            $first = http_build_query(array_merge($_GET, [$this->pageIdentifier => 1]));
+
+            $links .= "<li class='page-item'><a href='?{$linkPage}'>Anterior</a></li>";
+            $links .= "<li class='page-item'><a href='?{$first}'>Primeira</a></li>";
+        }
+
+        if ($this->currentPage < $this->totalPages) {
+            $next = $this->currentPage + 1;
+            $linkPage = http_build_query(array_merge($_GET, [$this->pageIdentifier => $next]));
+            $last = http_build_query(array_merge($_GET, [$this->pageIdentifier => $this->totalPages]));
+
+            $links .= "<li class='page-item'><a href='?{$linkPage}'>Proxima</a></li>";
+            $links .= "<li class='page-item'><a href='?{$last}'>Ultima</a></li>";
+        }
+
+
+        $links .= '</ul>';
+    }
+
 }

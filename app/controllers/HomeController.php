@@ -33,6 +33,9 @@ class HomeController extends Controller
 
         // dd($user);
 
+        $arr = ['name' => 'alexandre'];
+        dd(http_build_query($arr));
+
         $this->view('Home', ['title' => 'Home']);
     }
 
