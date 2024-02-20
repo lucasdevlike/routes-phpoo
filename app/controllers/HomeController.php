@@ -28,10 +28,10 @@ class HomeController extends Controller
         //     'password' => '123456567'
         // ]);
 
-        $user = new User();
-        $user->update('id', 4, ['firstName' => 'Leticia LELE', 'lastName' => 'Moraes Fregonezi Sacilotto']);
+        // $user = new User();
+        // $user->update('id', 4, ['firstName' => 'Leticia LELE', 'lastName' => 'Moraes Fregonezi Sacilotto']);
 
-        dd($user);
+        // dd($user);
 
         $this->view('Home', ['title' => 'Home']);
     }

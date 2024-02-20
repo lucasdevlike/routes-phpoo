@@ -5,12 +5,14 @@ namespace app\database\models;
 use PDO;
 use app\database\Filters;
 use app\database\Connection;
+use app\database\Pagination;
 
 #[\AllowDynamicProperties]
 abstract class Model
 {
     private string $fields = '*';
     private string $filters = '';
+    private string $pagination = '';
 
     public function setFields($fields)
     {
@@ -20,6 +22,11 @@ abstract class Model
     public function setFilters(Filters $filters)
     {
         $this->filters = $filters->dump();
+    }
+
+    public function setPagination(Pagination $pagination)
+    {
+        $this->pagination = $pagination->dump();
     }
 
     public function create(array $data)
@@ -71,7 +78,7 @@ abstract class Model
     {
         try {
 
-            $sql = "SELECT {$this->fields} from {$this->table} {$this->filters}";
+            $sql = "SELECT {$this->fields} from {$this->table} {$this->filters} {$this->pagination}";
             // dd($sql);
             $connection = Connection::connect();
             $query = $connection->query($sql);
