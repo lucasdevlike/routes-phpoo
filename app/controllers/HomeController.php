@@ -20,15 +20,18 @@ class HomeController extends Controller
         // dd($userFound);
 
 
-        $user = new User();
-        $created = $user->create([
-            'firstName' => 'Alexandre',
-            'lastName' => 'Cardoso',
-            'email' => 'xandecar@gmail.com',
-            'password' => '123456567'
-        ]);
+        // $user = new User();
+        // $created = $user->create([
+        //     'firstName' => 'Alexandre',
+        //     'lastName' => 'Cardoso',
+        //     'email' => 'xandecar@gmail.com',
+        //     'password' => '123456567'
+        // ]);
 
-        dd($created);
+        $user = new User();
+        $user->update('id', 4, ['firstName' => 'Leticia LELE', 'lastName' => 'Moraes Fregonezi Sacilotto']);
+
+        dd($user);
 
         $this->view('Home', ['title' => 'Home']);
     }

@@ -42,6 +42,31 @@ abstract class Model
         }
     }
 
+    public function update(string $field, string|int $fildValue, array $data)
+    {
+        try {
+
+            $sql = "update {$this->table} set ";
+            foreach ($data as $key => $value) {
+                $sql .= "{$key} = :{$key},";
+            }
+
+            $sql = rtrim($sql, ',');
+            $sql.= " where {$field} = :{$field}";
+
+            $connect = Connection::connect();
+
+            $data[$field] = $fildValue;
+
+            $prepare = $connect->prepare($sql);
+
+            return $prepare->execute($data);
+
+        } catch (\PDOException $e) {
+            dd($e->getMessage());
+        }
+    }
+
     public function fetchAll()
     {
         try {
