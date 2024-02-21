@@ -1,6 +1,6 @@
 <?php $this->layout('master', ['title' => $title]) ?>
 
-<h1>Home</h1>
+<h1>Home (<?= $pagination->getTotal();?> Usuários cadastrados)</h1>
 
 <ul>
     <?php foreach ($users as $user) : ?>
@@ -10,4 +10,4 @@
     <?php endforeach; ?>
 </ul>
 
-<?php echo $pagination->links() ?>
+<?php echo $pagination->links(); ?>

@@ -15,7 +15,7 @@ class Routes
             ],
 
             'post' => [
-                '/user/update/[0-9]+' => 'UserController@update'
+                '/user/update' => 'UserController@update'
             ]
         ];
     }

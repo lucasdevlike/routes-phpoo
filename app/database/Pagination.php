@@ -28,6 +28,17 @@ class Pagination
     }
 
 
+    public function getTotal()
+    {
+        return $this->totalItems;
+    }
+
+    public function getPerPage()
+    {
+        return $this->itemsPerPage;
+    }
+
+
     private function calculations()
     {
         $this->currentPage = $_GET['page'] ?? 1;
