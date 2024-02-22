@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\core\Request;
 use app\support\Csrf;
+use app\support\Validate;
 
 class UserController extends Controller
 {
@@ -14,13 +15,15 @@ class UserController extends Controller
 
     public function update($params)
     {
-        Csrf::validateToken();
-        // $response = Request::only(['password','lastName']);
-        // $response = Request::only('firstName');
-        // $response = Request::excepts(['firstName', 'lastName']);
-        // $response = Request::excepts('firstName');
-        // dd($response);
-    }
 
+        $validate = new Validate();
+        $validate->validate([
+            'firstName' => 'maxLen:10',
+            'lastName' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|maxLen:10',
+        ]);
+
+    }
 
 }
