@@ -17,12 +17,17 @@ class UserController extends Controller
     {
 
         $validate = new Validate();
-        $validate->validate([
-            // 'firstName' => 'maxLen:10',
-            // 'lastName' => 'required',
-            // 'email' => 'required|email',
+        $validated = $validate->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'email' => 'required|email',
             'password' => 'maxLen:10|required',
         ]);
+
+        if (!$validated) {
+            return redirect('/user/12');
+        }
+        dd($validated);
 
     }
 

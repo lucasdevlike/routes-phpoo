@@ -53,7 +53,13 @@ class Validate
                 }
             }
 
+
         }
+        if (in_array(null, $inputValidation, true)) {
+            return null;
+        }
+
+        return $inputValidation[$field];
     }
 
 }

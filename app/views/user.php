@@ -13,7 +13,7 @@
     <input type="mail" name="email" value="lucasmoraes@email.com">
     <?php echo flash('password');?>
     <input type="password" name="password" value="123456">
-    <?php echo flash('');?>
+
 
     <button type="submit">Atualizar</button>
 </form>
