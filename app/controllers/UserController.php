@@ -18,10 +18,10 @@ class UserController extends Controller
 
         $validate = new Validate();
         $validate->validate([
-            'firstName' => 'maxLen:10',
-            'lastName' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|maxLen:10',
+            // 'firstName' => 'maxLen:10',
+            // 'lastName' => 'required',
+            // 'email' => 'required|email',
+            'password' => 'maxLen:10|required',
         ]);
 
     }
