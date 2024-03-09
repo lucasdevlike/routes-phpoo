@@ -9,6 +9,21 @@ class Validate
 {
     use Validations;
 
+    private function getParam($validation, $param)
+    {
+        if (substr_count($validation, ':') == 1) {
+            list($validation, $param) = explode(":", $validation);
+        }
+        return [$validation, $param];
+    }
+
+    private function validationExist($validation)
+    {
+        if (!method_exists($this, $validation)) {
+            throw new Exception("O método {$validation} não existe na validação");
+        }
+    }
+
     public function validate(array $validationsFields)
     {
 
@@ -20,47 +35,41 @@ class Validate
 
             if (!$havePipes) {
                 $param = '';
-                if (substr_count($validation, ':') == 1) {
-                    list($validation, $param) = explode(":", $validation);
-                }
-                if (!method_exists($this, $validation)) {
-                    throw new Exception("A validação {$validation} não existe");
-                }
+
+                [$validation, $param] = $this->getParam($validation, $param);
+
+                $this->validationExist($validation);
 
                 $inputValidation[$field] = $this->$validation($field, $param);
-                // dd($methodValidation, $param);
 
             } else {
                 $validations =  explode('|', $validation);
                 $param = '';
                 foreach ($validations as $validation) {
-                    if (substr_count($validation, ':') == 1) {
-                        list($validation, $param) = explode(":", $validation);
-                    }
 
-                    if (!method_exists($this, $validation)) {
-                        throw new Exception("O método {$validation} não existe na validação");
-                    }
+                    [$validation, $param] = $this->getParam($validation, $param);
+                    $this->validationExist($validation);
 
                     $inputValidation[$field] = $this->$validation($field, $param);
 
-                    // var_dump($inputValidation[$field]);
-
-                    if(empty($inputValidation[$field])) {
+                    if($inputValidation[$field] === null) {
                         break;
                     }
-
                 }
             }
-
-
         }
+        return $this->returnValidation($inputValidation);
+
+    }
+
+    private function returnValidation($inputValidation)
+    {
         Csrf::validateToken();
         if (in_array(null, $inputValidation, true)) {
             return null;
         }
 
-        return $inputValidation[$field];
+        return $inputValidation;
     }
 
 }
