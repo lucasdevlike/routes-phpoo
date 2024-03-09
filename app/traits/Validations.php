@@ -7,8 +7,21 @@ use app\support\Flash;
 
 trait Validations
 {
-    public function unique($field)
+    public function unique($field, $param)
     {
+        $data = Request::input($field);
+
+        $model = new $param();
+        $model->setFields('id,firstName,lastName');
+
+        $registerFound = $model->findBy($field, $data);
+
+        if($registerFound) {
+            Flash::set($field, "O {$data} já está em uso.");
+            return null;
+        }
+
+        return strip_tags($data, '<p><b><span>');
 
     }
 
