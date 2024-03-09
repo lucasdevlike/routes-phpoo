@@ -55,6 +55,7 @@ class Validate
 
 
         }
+        Csrf::validateToken();
         if (in_array(null, $inputValidation, true)) {
             return null;
         }

@@ -16,6 +16,7 @@ trait Validations
     {
         if (!filter_input(INPUT_POST, $field, FILTER_VALIDATE_EMAIL)) {
             Flash::set($field, "Esse campo precisa de um email válido");
+            return null;
         }
 
         return strip_tags(Request::input($field), '<p><b><span>');
@@ -29,7 +30,7 @@ trait Validations
             Flash::set($field, "O campo é obrigatório");
             return null;
         }
-        return strip_tags($data, '<p><b><span>');
+        return strip_tags($data, '<p><b><ul></ul><span>');
     }
 
     public function maxLen($field, $param)
