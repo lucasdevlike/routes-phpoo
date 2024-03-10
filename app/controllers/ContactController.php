@@ -31,6 +31,7 @@ class ContactController extends Controller
         $sent = $email->from($validated['email'], 'Lucas Moraes')
                       ->to('lucasfregonezi@gmail.com')
                       ->message($validated['message'])
+                      ->template('contact', ['name' => 'Lucas', 'subject' => $validated['subject']])
                       ->subject($validated['subject'])
                       ->send();
 

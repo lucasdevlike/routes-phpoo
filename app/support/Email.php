@@ -10,7 +10,7 @@ class Email
     private string|array $to;
     private string $from;
     private string $fromName;
-    private string $template;
+    private string $template = '';
     private array $templateData = [];
     private string $subject;
     private string $message;
@@ -42,8 +42,11 @@ class Email
         return $this;
     }
 
-    public function template(): Email
+    public function template(string $template, array $templateData): Email
     {
+        $this->template = $template;
+        $this->templateData = $templateData;
+
         return $this;
     }
 
@@ -76,6 +79,23 @@ class Email
         }
     }
 
+    private function sendWithTemplate()
+    {
+        $file = '../app/views/emails/' . $this->template . '.html';
+
+        if (!file_exists($file)) {
+            throw new Exception("O template {$this->template} não existe");
+        }
+        $template = file_get_contents($file);
+
+        $this->templateData['message'] = $this->message;
+
+        foreach ($this->templateData as $key => $data) {
+            $dataTemplate["@{$key}"] = $data;
+        }
+        return str_replace(array_keys($dataTemplate), array_values($dataTemplate), $template);
+    }
+
     public function send()
     {
         $this->mail->setFrom($this->from, $this->fromName);
@@ -85,7 +105,7 @@ class Email
         $this->mail->isHTML(true);
         $this->mail->CharSet = 'UTF-8';
         $this->mail->Subject = $this->subject;
-        $this->mail->Body    = $this->message;
+        $this->mail->Body    = empty($this->template) ? $this->message : $this->sendWithTemplate();
         $this->mail->AltBody = $this->message;
 
         return $this->mail->send();
