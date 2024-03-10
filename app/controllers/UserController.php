@@ -28,7 +28,7 @@ class UserController extends Controller
         if (!$validated) {
             return redirect('/user/12');
         }
-        dd($validated);
+        var_dump($validated);
 
     }
 

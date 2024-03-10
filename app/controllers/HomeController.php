@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         $filters = new Filters();
         $filters->where('users.id', '>', 2);
-        // $filters->join('posts', 'users.id', '=', 'posts.userId', 'left join');
+
 
         $pagination = new Pagination();
         $pagination->setItemsPerPage(5);
@@ -22,6 +22,7 @@ class HomeController extends Controller
         $user->setFilters($filters);
         $user->setPagination($pagination);
         $userFound = $user->fetchAll();
+        // $userFound = $user->findBy();
 
 
         $this->view('Home', ['title' => 'Home', 'users' => $userFound, 'pagination' => $pagination]);

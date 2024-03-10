@@ -31,7 +31,7 @@ class RoutersFilter
     {
         foreach ($this->routesRegistered[$this->method] as $index => $route) {
             $regex = str_replace('/', '\/', ltrim($index, '/'));
-            // var_dump($regex);
+
             if($index !== '/' && preg_match("/^$regex$/", trim($this->uri, '/'))) {
                 $routerRegisteredFound = $route;
                 break;

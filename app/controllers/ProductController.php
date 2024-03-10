@@ -9,6 +9,6 @@ class ProductController extends Controller
 {
     public function show($params)
     {
-        dd($params);
+        var_dump($params);
     }
 }

@@ -8,7 +8,7 @@ class User extends Model
 
     public function test()
     {
-        dd('teste');
+        var_dump('teste');
     }
 
 }

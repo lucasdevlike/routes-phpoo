@@ -5,6 +5,7 @@ namespace app\database;
 class Filters
 {
     private array $filters = [];
+    private array $binds = [];
 
     public function where(string $field, string $operator, mixed $value, string $logic = '')
     {
@@ -22,8 +23,16 @@ class Filters
 
         $value = strip_tags($formater);
 
-        $this->filters['where'][] = "{$field} {$operator} {$value} {$logic}";
+        // $this->filters['where'][] = "{$field} {$operator} {$value} {$logic}";
+        $fieldBind = str_contains($field, '.') ? str_replace('.', '', $field) : $field;
+        $this->filters['where'][] = "{$field} {$operator} :{$fieldBind} {$logic}";
+        $this->binds[$fieldBind] = $value;
 
+    }
+
+    public function getBind()
+    {
+        return $this->binds;
     }
 
     public function limit(int $limit)

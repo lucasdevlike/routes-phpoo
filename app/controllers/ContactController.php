@@ -27,7 +27,7 @@ class ContactController extends Controller
         }
 
         $email = new Email();
-        // $email->from()->to([''])->template('contact')->message()->subject()->send();
+
         $sent = $email->from($validated['email'], 'Lucas Moraes')
                       ->to('lucasfregonezi@gmail.com')
                       ->message($validated['message'])
@@ -43,7 +43,7 @@ class ContactController extends Controller
             return redirect('/contact');
 
         }
-        // dd($sent);
+
     }
 
 }
